@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REST API</title>
+</head>
+
+<body>
+    <script>
+        const request = new XMLHttpRequest();
+        request.open("GET", "https://api.restful-api.dev/objects");
+        request.send();
+        request.onload = () => {
+            if (request.status === 200) {
+                const users = JSON.parse(request.responseText);
+                console.log(JSON.stringify(users));
+                console.log(users);
+                console.log(users[2].name);
+            } else {
+                console.log("Erro:", request.status);
+            }
+        };
+    </script>
+
+</body>
+
+</html>
