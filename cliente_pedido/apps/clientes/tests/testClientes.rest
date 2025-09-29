@@ -1,0 +1,65 @@
+### Necessário para pegar o token
+# @name loginAutenticado
+POST http://localhost:40000/login HTTP/1.1
+content-type: application/json
+
+{    
+    "username": "qwe",
+    "password": "qwe"
+}
+
+### Seta o token
+@accessToken = {{loginAutenticado.response.body.$.token}}
+@username = {{loginAutenticado.response.body.$.username}}
+
+### Inserção de cliente
+POST http://localhost:40000/clientes HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{accessToken}}
+
+{    
+    "clienteid": 0,
+    "codigo": "CLI99",
+    "nome": "Carlos da Rocha",
+    "endereco": "Rua X, 123",
+    "ativo": true,
+    "deleted": false
+}
+
+### Buscar todos os clientes
+GET http://localhost:40000/clientes HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{accessToken}}
+
+
+### Buscar cliente por ID
+POST http://localhost:40000/clientes/id HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{accessToken}}
+
+{    
+    "clienteid": 1
+}
+
+### Atualização de cliente
+PUT http://localhost:40000/clientes HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{accessToken}}
+
+{    
+    "clienteid": 1,
+    "codigo": "CLI01-ALT",
+    "nome": "João da Silva Alterado",
+    "endereco": "Rua A1, Número 99",
+    "ativo": false,
+    "deleted": false
+}
+
+### Exclusão lógica de cliente
+DELETE http://localhost:40000/clientes HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{accessToken}}
+
+{    
+    "clienteid": 1  
+}
